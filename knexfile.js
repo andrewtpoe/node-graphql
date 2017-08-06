@@ -17,12 +17,7 @@ module.exports = {
 
   staging: {
     client: 'pg',
-    connection: {
-      database: process.env.DB_NAME,
-      host: process.env.DB_HOST,
-      password: process.env.DB_PASSWORD,
-      user: process.env.DB_USERNAME,
-    },
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: 'db/migrations/',
       tableName: 'knex_migrations',
@@ -35,12 +30,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: {
-      database: process.env.DB_NAME,
-      host: process.env.DB_HOST,
-      password: process.env.DB_PASSWORD,
-      user: process.env.DB_USERNAME,
-    },
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: 'db/migrations/',
       tableName: 'knex_migrations',
