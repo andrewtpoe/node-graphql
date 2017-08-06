@@ -4,7 +4,24 @@
   "description": "A basic node app to play with node, express, graphql, postgres, and heroku",
   "main": "index.js",
   "scripts": {
+    "knex": "knex",
+    "start": "node ./src/server.js",
+    "start:debug": "node inspect ./src/server.js",
+    "start:watch": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "andrew t. poe",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^1.0.5",
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "graphql": "^0.10.5",
+    "graphql-tools": "^1.1.0",
+    "knex": "^0.13.0",
+    "pg": "^7.0.2"
+  }
 }
