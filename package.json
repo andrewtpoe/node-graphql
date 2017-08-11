@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "knex": "knex",
-    "start": "node ./src/server.js",
+    "start": "NODE_ENV=production node ./src/server.js",
     "start:debug": "node inspect ./src/server.js",
     "start:watch": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
