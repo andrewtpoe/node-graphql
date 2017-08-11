@@ -17,7 +17,11 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
 const schema = require('./schema');
 
+console.log('All imports loaded.');
+
 const app = express();
+
+console.log('express initialized');
 
 app.use(
   '/graphql',
@@ -28,6 +32,8 @@ app.use(
   }),
 );
 
+console.log('graphql endpoint initialized');
+
 app.use(
   '/graphiql',
   graphiqlExpress({
@@ -35,9 +41,13 @@ app.use(
   }),
 );
 
+console.log('graphiql endpoint initialized');
+
 app.get('/', (req, res) => {
   res.redirect('/graphiql');
 });
+
+console.log('home page endpoint initialized');
 
 app.listen(PORT, () => {
   console.log(`Hackernews GraphQL server running on port ${PORT}.`);
