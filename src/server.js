@@ -3,7 +3,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 // Connect to the database
-const db = require('./database');
+const db = require('./models');
 
 // This package gives us the server side app framework.
 const express = require('express');
@@ -15,40 +15,41 @@ const bodyParser = require('body-parser');
 // for you, based on your schema.
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
+// This file defines your graphql schema.
 const schema = require('./schema');
+const { authenticate } = require('./authentication');
 
-console.log('All imports loaded.');
+const start = async () => {
+  const app = express();
 
-const app = express();
+  const buildGraphqlOptions = async (req, res) => {
+    const user = await authenticate(req, db);
 
-console.log('express initialized');
+    return {
+      context: {
+        db,
+        user,
+      },
+      schema,
+    };
+  };
 
-app.use(
-  '/graphql',
-  bodyParser.json(),
-  graphqlExpress({
-    context: { db },
-    schema,
-  }),
-);
+  app.use('/graphql', bodyParser.json(), graphqlExpress(buildGraphqlOptions));
 
-console.log('graphql endpoint initialized');
+  app.use(
+    '/graphiql',
+    graphiqlExpress({
+      endpointURL: '/graphql',
+    }),
+  );
 
-app.use(
-  '/graphiql',
-  graphiqlExpress({
-    endpointURL: '/graphql',
-  }),
-);
+  app.get('/', (req, res) => {
+    res.redirect('/graphiql');
+  });
 
-console.log('graphiql endpoint initialized');
+  app.listen(PORT, () => {
+    console.log(`Hackernews GraphQL server running on port ${PORT}.`);
+  });
+};
 
-app.get('/', (req, res) => {
-  res.redirect('/graphiql');
-});
-
-console.log('home page endpoint initialized');
-
-app.listen(PORT, () => {
-  console.log(`Hackernews GraphQL server running on port ${PORT}.`);
-});
+start();

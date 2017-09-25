@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "description": "A basic node app to play with node, express, graphql, postgres, and heroku",
   "engines": {
-    "node": "8.3.0"
+    "node": "8.5.0"
   },
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "knex": "knex",
-    "start": "NODE_ENV=production node ./src/server.js",
+    "sql": "sequelize",
     "start:debug": "node inspect ./src/server.js",
-    "start:watch": "nodemon ./src/server.js",
+    "start:dev": "nodemon ./src/server.js",
+    "start": "NODE_ENV=production node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "andrew t. poe",
@@ -24,7 +24,10 @@
     "express": "^4.15.3",
     "graphql": "^0.10.5",
     "graphql-tools": "^1.1.0",
-    "knex": "^0.13.0",
-    "pg": "^7.0.2"
+    "lodash": "^4.17.4",
+    "pg": "^7.0.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.10.0",
+    "sequelize-cli": "^3.0.0-3"
   }
 }
